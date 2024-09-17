@@ -1,13 +1,9 @@
-# Sample Hardhat Project
+# UNISWAP INTERACTION AND LUDO GAME IMPLEMENTATION
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
-
+A test for ludoGame and Uniswap Interaction
 Try running some of the following tasks:
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
+NPM INSTALL
+
 ```
