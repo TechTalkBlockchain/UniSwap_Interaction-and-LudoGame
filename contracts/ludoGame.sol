@@ -4,13 +4,13 @@ pragma solidity ^0.8.20;
 contract LudoGame {
     address[4] public players; 
     uint256 public firstPlayer; 
-    uint8 public rollDice; 
+    uint8 public lastRoll; 
     bool public start;
 
     mapping(address => bool) public isPlayer; 
     mapping(address => uint256) public playerPosition; 
 
-    modifier players() {
+    modifier onlyPlayers() {
         require(isPlayer[msg.sender], "You are not a player in this game.");
         _;
     }
@@ -34,13 +34,13 @@ contract LudoGame {
         start = true;
     }
 
-    function rollDice() public players turn gameInPlay  returns (uint256) {
-        rollDice = uint8(uint256(keccak256(abi.encodePacked(block.timestamp, block.number, msg.sender))) % 6) + 1;
-        playerPosition[msg.sender] += rollDice; 
+    function rollDice() public onlyPlayers turn gameInPlay returns (uint256) {
+        lastRoll = uint8(uint256(keccak256(abi.encodePacked(block.timestamp, block.number, msg.sender))) % 6) + 1;
+        playerPosition[msg.sender] += lastRoll; 
         
         firstPlayer = (firstPlayer + 1) % 4;
 
-        return rollDice;
+        return lastRoll;
     }
 
     function getCurrentPlayer() public view returns (address) {
@@ -50,5 +50,4 @@ contract LudoGame {
     function getPlayerPosition(address player) public view returns (uint256) {
         return playerPosition[player];
     }
-
 }
